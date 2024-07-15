@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+    <meta charset="UTF-8">
+    <title>Client List</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+
+<div layout:fragment="content1">
+    <div class="container mt-2">
+        <title>List of Clients</title>
+
+        <div class="card">
+            <div class="card-header">List of Clients</div>
+            <div class="card-body">
+                <form th:action="@{index}" method="get">
+                    <label>Keyword</label>
+                    <input type="text" name="keyword" th:value="${keyword}">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+                <table class="table table-striped shadow">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Type</th>
+                        <th>ICE</th>
+                        <th>CIN</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="c:${listClients}">
+                        <td th:text="${c.id}"></td>
+                        <td th:text="${c.nom}"></td>
+                        <td th:text="${c.adresse}"></td>
+                        <td th:text="${c.typeClient}"></td>
+                        <td th:text="${c.ICE}"></td>
+                        <td th:text="${c.CIN}"></td>
+                        <td>
+                            <a class="btn btn-primary" th:href="@{update(id=${c.id},page=${currentPage},keyword=${keyword})}">
+                                Update
+                            </a>
+                        </td>
+                        <td>
+                            <a onclick="return confirm('Are you sure?')" class="btn btn-danger" th:href="@{delete(id=${c.id},keyword=${keyword},page=${currentPage})}">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <ul class="nav nav-pills">
+                    <li th:each="page,status:${pages}">
+                        <a th:text="${status.index}" th:class="${status.index==currentPage} ? 'btn btn-primary ms-1' : 'btn btn-outline-primary ms-1'" th:href="@{index(page=${status.index},keyword=${keyword})}">
+                        </a>
+                    </li>
+                </ul>
+                <a class="btn btn-success mt-2" th:href="@{/formClients}">
+                    Add New Client
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

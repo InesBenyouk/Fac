@@ -1,51 +1,71 @@
 package com.example.project.controllers;
 
 import com.example.project.entities.Client;
-import com.example.project.entities.TypeClient;
-import com.example.project.services.ClientService;
-import jakarta.persistence.Id;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.example.project.repositories.ClientRepo;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
+@AllArgsConstructor
 public class ClientController {
+    private ClientRepo clientRepository;
 
-    private ClientService clientService;
-    private ClientService clientRepository;
+    @GetMapping(path = "/index")
+    public String clients(Model model,
+                          @RequestParam(name = "page", defaultValue = "0") int page,
+                          @RequestParam(name = "size", defaultValue = "5") int size,
+                          @RequestParam(name = "keyword", defaultValue = "") String keyword) {
+        Page<Client> pageClients = clientRepository.findByNomContains(keyword, PageRequest.of(page, size));
+        model.addAttribute("listClients", pageClients.getContent());
+        model.addAttribute("pages", new int[pageClients.getTotalPages()]);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("keyword", keyword);
+        return "clients";
+    }
 
-    @PostMapping
-    public Client createClient(@RequestBody Client client) {
-        return (Client) clientService.saveClient(client);
+    @GetMapping(path = "/delete")
+    public String delete(Long id, int page, String keyword) {
+        clientRepository.deleteById(id);
+        return "redirect:/index?page=" + page + "&keyword=" + keyword;
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<Client> updateClient(@PathVariable Long id, @RequestBody Client newClient) {
-        return clientService.updateClient(id, newClient)
-                .map(client -> ResponseEntity.ok(client))
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-    // Autres méthodes
 
-    @GetMapping("/type/{typeClient}")
-    public ResponseEntity<List<Client>> getClientsByType(@PathVariable TypeClient typeClient) {
-        List<Client> clients = clientService.findByTypeClient(typeClient);
-        return clients.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(clients);
+    @GetMapping(path = "/")
+    public String home() {
+        return "redirect:/index";
     }
-    @DeleteMapping("/conditional/{id}")
-    public ResponseEntity<Void> conditionalDeleteClient(@PathVariable Long id) {
+
+    @GetMapping("/formClients")
+    public String formClient(Model model) {
+        model.addAttribute("client", new Client());
+        return "formClients";
+    }
+
+    @PostMapping("/save")
+    public String save(Model model, @Valid Client client, BindingResult bindingResult,
+                       @RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "") String keyword) {
+        if (bindingResult.hasErrors()) return "formClients";
+        clientRepository.save(client);
+        return "redirect:/index?page=" + page + "&keyword=" + keyword;
+    }
+
+    @GetMapping("/update")
+    public String getUpdateForm(Model model, Long id, int page, String keyword) {
         Optional<Client> client = clientRepository.findById(id);
-        if (client.isPresent() && client.get().getFactures().isEmpty()) {
-            clientRepository.delete(client.get());
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.status(HttpStatus.CONFLICT).build(); // ou tout autre code approprié
+        if (!client.isPresent()) throw new RuntimeException("Client not found!");
+        model.addAttribute("client", client.get());
+        model.addAttribute("page", page);
+        model.addAttribute("keyword", keyword);
+        return "editClients";
     }
-
-
 }
-
