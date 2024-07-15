@@ -37,5 +37,4 @@ public class Client {
     private Set<EnteteFacture> factures;
 
 
-    /* Getters et setters */
 }

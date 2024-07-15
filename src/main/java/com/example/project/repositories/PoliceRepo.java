@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface PoliceRepo extends JpaRepository<Police, Long> {
 
 
-    Police findPoliceByCompteur5Chiffres(String chiffre);
+//    Police findPoliceByCompteur5Chiffres(String chiffre);
 }
