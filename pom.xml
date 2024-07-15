@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project:project xmlns:project="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<project:modelVersion>4.0.0</project:modelVersion>
+	<project:parent>
+		<project:groupId>org.springframework.boot</project:groupId>
+		<project:artifactId>spring-boot-starter-parent</project:artifactId>
+		<project:version>3.2.5</project:version>
+		<project:relativePath/> <!-- lookup parent from repository -->
+	</project:parent>
+	<project:groupId>com.example</project:groupId>
+	<project:artifactId>project</project:artifactId>
+	<project:version>0.0.1-SNAPSHOT</project:version>
+	<project:name>project</project:name>
+	<project:description>project</project:description>
+	<project:properties>
+		<project:java.version>21</project:java.version>
+	</project:properties>
+	<project:dependencies>
+		<project:dependency>
+			<project:groupId>org.springframework.boot</project:groupId>
+			<project:artifactId>spring-boot-starter-data-jpa</project:artifactId>
+		</project:dependency>
+		<project:dependency>
+			<project:groupId>org.springframework.boot</project:groupId>
+			<project:artifactId>spring-boot-starter-web</project:artifactId>
+		</project:dependency>
+
+		<project:dependency>
+			<project:groupId>com.mysql</project:groupId>
+			<project:artifactId>mysql-connector-j</project:artifactId>
+			<project:scope>runtime</project:scope>
+		</project:dependency>
+		<project:dependency>
+			<project:groupId>org.projectlombok</project:groupId>
+			<project:artifactId>lombok</project:artifactId>
+			<project:optional>true</project:optional>
+		</project:dependency>
+		<project:dependency>
+			<project:groupId>org.springframework.boot</project:groupId>
+			<project:artifactId>spring-boot-starter-thymeleaf</project:artifactId>
+		</project:dependency>
+		<project:dependency>
+			<project:groupId>org.springframework.boot</project:groupId>
+			<project:artifactId>spring-boot-devtools</project:artifactId>
+			<project:scope>runtime</project:scope>
+			<project:optional>true</project:optional>
+		</project:dependency>
+		<project:dependency>
+			<project:groupId>org.webjars</project:groupId>
+			<project:artifactId>bootstrap</project:artifactId>
+			<project:version>5.3.3</project:version>
+		</project:dependency>
+		<project:dependency>
+			<project:groupId>org.webjars.npm</project:groupId>
+			<project:artifactId>bootstrap-icons</project:artifactId>
+			<project:version>1.10.3</project:version>
+		</project:dependency>
+		<project:dependency>
+			<project:groupId>nz.net.ultraq.thymeleaf</project:groupId>
+			<project:artifactId>thymeleaf-layout-dialect</project:artifactId>
+			<project:version>3.3.0</project:version>
+		</project:dependency>
+
+
+		<project:dependency>
+			<project:groupId>org.springframework.boot</project:groupId>
+			<project:artifactId>spring-boot-starter-validation</project:artifactId>
+			<project:version>3.2.0</project:version>
+		</project:dependency>
+
+
+		<project:dependency>
+			<project:groupId>org.springdoc</project:groupId>
+			<project:artifactId>springdoc-openapi-starter-webmvc-ui</project:artifactId>
+			<project:version>2.3.0</project:version>
+		</project:dependency>
+		<project:dependency>
+			<project:groupId>org.springframework.boot</project:groupId>
+			<project:artifactId>spring-boot-starter-test</project:artifactId>
+			<project:scope>test</project:scope>
+		</project:dependency>
+	</project:dependencies>
+
+	<project:build>
+		<project:plugins>
+			<project:plugin>
+				<project:groupId>org.springframework.boot</project:groupId>
+				<project:artifactId>spring-boot-maven-plugin</project:artifactId>
+			</project:plugin>
+		</project:plugins>
+	</project:build>
+
+</project:project>
