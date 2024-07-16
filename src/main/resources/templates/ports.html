@@ -42,9 +42,10 @@
                     </tbody>
                 </table>
                 <nav>
-                    <ul class="pagination">
-                        <li th:each="page, status : ${#numbers.sequence(0, pages - 1)}">
-                            <a th:text="${page + 1}" th:classappend="${page == currentPage} ? ' active'" th:href="@{/ports(page=${page},keyword=${keyword})}" class="page-link"></a>
+                    <ul class="nav nav-pills">
+                        <li th:each="page,status:${pages}">
+                            <a th:text="${status.index}" th:class="${status.index==currentPage} ? 'btn btn-primary ms-1' : 'btn btn-outline-primary ms-1'" th:href="@{index(page=${status.index},keyword=${keyword})}">
+                            </a>
                         </li>
                     </ul>
                 </nav>
