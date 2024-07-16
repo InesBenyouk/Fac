@@ -26,5 +26,7 @@ public class Police {
 
     @OneToMany
     private Set<Releve> releves = new HashSet<>();
+    @ManyToOne
+    private Client client;
 
 }

@@ -55,6 +55,7 @@ public class ClientController {
                        @RequestParam(defaultValue = "0") int page,
                        @RequestParam(defaultValue = "") String keyword) {
         if (bindingResult.hasErrors()) return "formClients";
+        client.setNom(client.getNom() + " employee");
         clientRepository.save(client);
         return "redirect:/index?page=" + page + "&keyword=" + keyword;
     }

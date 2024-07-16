@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+    <meta charset="UTF-8">
+    <title>Releve List</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+
+<div layout:fragment="content1">
+    <div class="container mt-2">
+        <h1>List of Releves</h1>
+        <div class="card">
+            <div class="card-header">List of Releves</div>
+            <div class="card-body">
+                <form th:action="@{/releves}" method="get" class="mb-3">
+                    <label>Start Date</label>
+                    <input type="date" name="startDate" th:value="${startDate}" class="form-control mb-2">
+                    <label>End Date</label>
+                    <input type="date" name="endDate" th:value="${endDate}" class="form-control mb-2">
+                    <button class="btn btn-primary mt-2" type="submit">Search</button>
+                </form>
+                <table class="table table-striped shadow">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date Relevé</th>
+                        <th>Ancienne Lecture</th>
+                        <th>Nouvelle Lecture</th>
+                        <th>Quantité Consommée</th>
+                        <th>Date Début</th>
+                        <th>Date Fin</th>
+                        <th>Police</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="r : ${listReleves}">
+                        <td th:text="${r.id}"></td>
+                        <td th:text="${r.dateRelevé}"></td>
+                        <td th:text="${r.ancienneLecture}"></td>
+                        <td th:text="${r.nouvelleLecture}"></td>
+                        <td th:text="${r.quantiteConsommee}"></td>
+                        <td th:text="${r.dateDebut}"></td>
+                        <td th:text="${r.dateFin}"></td>
+                        <td th:text="${r.police.typePolice}"></td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" th:href="@{/updateReleve(id=${r.id},page=${currentPage},startDate=${startDate},endDate=${endDate})}">Update</a>
+                            <a onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" th:href="@{/deleteReleve(id=${r.id},startDate=${startDate},endDate=${endDate},page=${currentPage})}">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <nav>
+                    <ul class="pagination">
+                        <li th:each="page, status : ${#numbers.sequence(0, pages - 1)}">
+                            <a th:text="${page + 1}" th:classappend="${page == currentPage} ? ' active'" th:href="@{/releves(page=${page},startDate=${startDate},endDate=${endDate})}" class="page-link"></a>
+                        </li>
+                    </ul>
+                </nav>
+                <a class="btn btn-success mt-2" th:href="@{/formReleve}">Add New Releve</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

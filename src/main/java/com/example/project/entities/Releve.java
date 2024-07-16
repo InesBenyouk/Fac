@@ -1,4 +1,5 @@
 package com.example.project.entities;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +11,6 @@ import java.util.Date;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@NamedEntityGraph
 @Getter
 @Setter
 public class Releve {
@@ -18,14 +18,24 @@ public class Releve {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date dateRelevé;
-    private float quantiteEau;
-    private float quantiteElectricite;
+    private float ancienneLecture;
+    private float nouvelleLecture;
+    private Long portId;
     private Date dateDebut;
     private Date dateFin;
+    private float quantiteConsommee;
 
     @ManyToOne
     private Police police;
 
-    // Getters et setters
+    public void setQuantiteConsommee() {
+        int compteur5Chiffres = police.getCompteur5Chiffres();
+        float difference = nouvelleLecture - ancienneLecture;
+        if (difference < 0) {
+            difference += Math.pow(10, compteur5Chiffres);
+        }
+        this.quantiteConsommee = difference;
+    }
 }
+
 

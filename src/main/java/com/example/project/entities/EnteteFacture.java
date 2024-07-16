@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor @Data
@@ -24,6 +26,7 @@ public class EnteteFacture {
     @ManyToOne
     private Client client;
 
-    // Getters et setters
+    @OneToMany(mappedBy = "enteteFacture")
+    private Set<DetailsFacture> detailsFactures = new HashSet<>();
 }
 

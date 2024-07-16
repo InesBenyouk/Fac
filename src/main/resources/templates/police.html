@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+    <meta charset="UTF-8">
+    <title>Police List</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+
+<div layout:fragment="content1">
+    <div class="container mt-2">
+        <title>List of Polices</title>
+
+        <div class="card">
+            <div class="card-header">List of Polices</div>
+            <div class="card-body">
+                <form th:action="@{polices}" method="get">
+                    <label>Keyword</label>
+                    <input type="text" name="keyword" th:value="${keyword}">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+                <table class="table table-striped shadow">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Tarif</th>
+                        <th>Compteur</th>
+                        <th>Utilisateur</th>
+                        <th>Port</th>
+                        <th>Client</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p : ${listPolices}">
+                        <td th:text="${p.id}"></td>
+                        <td th:text="${p.typePolice}"></td>
+                        <td th:text="${p.tarif}"></td>
+                        <td th:text="${p.compteur5Chiffres}"></td>
+                        <td th:text="${p.utilisateur.nom}"></td>
+                        <td th:text="${p.port.libelle}"></td>
+                        <td th:text="${p.client.nom}"></td>
+                        <td>
+                            <a class="btn btn-primary" th:href="@{updatePolice(id=${p.id},page=${currentPage},keyword=${keyword})}">
+                                Update
+                            </a>
+                            <a onclick="return confirm('Are you sure?')" class="btn btn-danger" th:href="@{deletePolice(id=${p.id},keyword=${keyword},page=${currentPage})}">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- Pagination logic will go here -->
+                <a class="btn btn-success mt-2" th:href="@{/formPolice}">
+                    Add New Police
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

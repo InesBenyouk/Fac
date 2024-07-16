@@ -1,6 +1,4 @@
 package com.example.project.entities;
-import com.example.project.entities.EnteteFacture;
-import com.example.project.entities.TypeClient;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

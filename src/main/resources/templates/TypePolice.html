@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+    <meta charset="UTF-8">
+    <title>TypePolice List</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+
+<div layout:fragment="content1">
+    <div class="container mt-2">
+        <h1>List of TypePolices</h1>
+        <div class="card">
+            <div class="card-header">List of TypePolices</div>
+            <div class="card-body">
+                <form th:action="@{/typePolices}" method="get" class="mb-3">
+                    <label>Keyword</label>
+                    <input type="text" name="keyword" th:value="${keyword}" class="form-control mb-2">
+                    <button class="btn btn-primary mt-2" type="submit">Search</button>
+                </form>
+                <table class="table table-striped shadow">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Libelle</th>
+                        <th>Taux TVA</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="tp : ${listTypePolices}">
+                        <td th:text="${tp.id}"></td>
+                        <td th:text="${tp.libelle}"></td>
+                        <td th:text="${tp.tauxTVA}"></td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" th:href="@{/updateTypePolice(id=${tp.id},page=${currentPage},keyword=${keyword})}">Update</a>
+                            <a onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" th:href="@{/deleteTypePolice(id=${tp.id},keyword=${keyword},page=${currentPage})}">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <nav>
+                    <ul class="pagination">
+                        <li th:each="page, status : ${#numbers.sequence(0, pages - 1)}">
+                            <a th:text="${page + 1}" th:classappend="${page == currentPage} ? ' active'" th:href="@{/typePolices(page=${page},keyword=${keyword})}" class="page-link"></a>
+                        </li>
+                    </ul>
+                </nav>
+                <a class="btn btn-success mt-2" th:href="@{/formTypePolice}">Add New TypePolice</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
