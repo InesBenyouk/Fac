@@ -21,7 +21,7 @@
                     <input type="text" name="keyword" th:value="${keyword}">
                     <button class="btn btn-primary" type="submit">Search</button>
                 </form>
-                <table class="table table-striped shadow">
+                <table class="table table-bordered table-dark mt-5 table-striped table-hover">
                     <thead>
                     <tr>
                         <th>ID</th>
@@ -30,6 +30,7 @@
                         <th>Type</th>
                         <th>ICE</th>
                         <th>CIN</th>
+                        <th colspan="2" class="text-center">ACTIONS</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -66,5 +67,6 @@
         </div>
     </div>
 </div>
+<script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.js"></script>
 </body>
 </html>

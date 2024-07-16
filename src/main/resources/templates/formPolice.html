@@ -27,24 +27,24 @@
                         <label>Compteur</label>
                         <input type="number" th:field="*{compteur5Chiffres}" class="form-control">
                     </div>
-                    <div class="form-group">
-                        <label>Utilisateur</label>
-                        <select th:field="*{utilisateur}" class="form-control">
-                            <option th:each="u : ${utilisateurs}" th:value="${u}" th:text="${u.nom}"></option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Port</label>
-                        <select th:field="*{port}" class="form-control">
-                            <option th:each="p : ${ports}" th:value="${p}" th:text="${p.libelle}"></option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Client</label>
-                        <select th:field="*{client}" class="form-control">
-                            <option th:each="c : ${clients}" th:value="${c}" th:text="${c.nom}"></option>
-                        </select>
-                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <label>Utilisateur</label>-->
+<!--                        <select th:field="*{utilisateur}" class="form-control">-->
+<!--                            <option th:each="u : ${utilisateurs}" th:value="${u}" th:text="${u.nom}"></option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label>Port</label>-->
+<!--                        <select th:field="*{port}" class="form-control">-->
+<!--                            <option th:each="p : ${ports}" th:value="${p}" th:text="${p.libelle}"></option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label>Client</label>-->
+<!--                        <select th:field="*{client}" class="form-control">-->
+<!--                            <option th:each="c : ${clients}" th:value="${c}" th:text="${c.nom}"></option>-->
+<!--                        </select>-->
+<!--                    </div>-->
                     <button type="submit" class="btn btn-success mt-2">Save</button>
                 </form>
             </div>
