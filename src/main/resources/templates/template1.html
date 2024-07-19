@@ -80,57 +80,57 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Ports
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" th:href="@{/formPorts}">Nouveau</a></li>
-                        <li><a class="dropdown-item" th:href="@{/index}">Chercher</a></li>
+                        <li><a class="dropdown-item" th:href="@{/ports}">Chercher</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Polices
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{/formPolices}">Nouveau</a></li>
-                        <li><a class="dropdown-item" th:href="@{/index}">Chercher</a></li>
+                        <li><a class="dropdown-item" th:href="@{/formPolice}">Nouveau</a></li>
+                        <li><a class="dropdown-item" th:href="@{/polices}">Chercher</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Releves
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{/formReleves}">Nouveau</a></li>
-                        <li><a class="dropdown-item" th:href="@{/index}">Chercher</a></li>
+                        <li><a class="dropdown-item" th:href="@{/formReleve}">Nouveau</a></li>
+                        <li><a class="dropdown-item" th:href="@{/releves}">Chercher</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         TypePolices
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{/formTypesPolices}">Nouveau</a></li>
-                        <li><a class="dropdown-item" th:href="@{/index}">Chercher</a></li>
+                        <li><a class="dropdown-item" th:href="@{/formTypePolice}">Nouveau</a></li>
+                        <li><a class="dropdown-item" th:href="@{/typePolices}">Chercher</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         EnteteFactures
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{/formEnteteFactures}">Nouveau</a></li>
-                        <li><a class="dropdown-item" th:href="@{/index}">Chercher</a></li>
+                        <li><a class="dropdown-item" th:href="@{/formEnteteFacture}">Nouveau</a></li>
+                        <li><a class="dropdown-item" th:href="@{/enteteFactures}">Chercher</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         DetailsFactures
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{/formDetailsFacture.html}">Nouveau</a></li>
-                        <li><a class="dropdown-item" th:href="@{/index}">Chercher</a></li>
+                        <li><a class="dropdown-item" th:href="@{/formDetailsFacture}">Nouveau</a></li>
+                        <li><a class="dropdown-item" th:href="@{/detailsFactures}">Chercher</a></li>
                     </ul>
                 </li>
             </ul>
@@ -141,29 +141,7 @@
                         [user]
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{/formClients}">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="navbar-nav mx-3">
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        [user]
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{/formClients}">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="navbar-nav mx-3">
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        [user]
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{/formClients}">Logout</a></li>
+                        <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
                     </ul>
                 </li>
             </ul>

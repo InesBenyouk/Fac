@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
 </head>
 <body>
-
 <div layout:fragment="content1">
     <div class="container mt-5">
         <div class="card">
@@ -32,21 +31,19 @@
                         <input type="number" th:field="*{compteur5Chiffres}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label>Utilisateur</label>
-                        <select th:field="*{utilisateur}" class="form-control">
-                            <option th:each="u : ${utilisateurs}" th:value="${u}" th:text="${u.nom}"></option>
+                        <label for="utilisateur">Utilisateur</label>
+                        <select th:field="*{utilisateur}" class="form-control" id="utilisateur">
+                            <option th:each="utilisateur : ${utilisateurs}"
+                                    th:value="${utilisateur.id}"
+                                    th:text="${utilisateur.nom}"></option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Port</label>
-                        <select th:field="*{port}" class="form-control">
-                            <option th:each="p : ${ports}" th:value="${p}" th:text="${p.libelle}"></option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Client</label>
-                        <select th:field="*{client}" class="form-control">
-                            <option th:each="c : ${clients}" th:value="${c}" th:text="${c.nom}"></option>
+                        <label for="client">Client</label>
+                        <select th:field="*{client}" class="form-control" id="client">
+                            <option th:each="client : ${clients}"
+                                    th:value="${client.id}"
+                                    th:text="${client.nom}"></option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Update Police</button>

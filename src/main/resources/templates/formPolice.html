@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
 </head>
 <body>
-
 <div layout:fragment="content1">
     <div class="container mt-2">
         <div class="card">
@@ -16,35 +15,33 @@
             <div class="card-body">
                 <form th:action="@{/savePolice}" th:object="${police}" method="post">
                     <div class="form-group">
-                        <label>Type Police</label>
-                        <input type="text" th:field="*{typePolice}" class="form-control">
+                        <label for="typePolice">Type Police</label>
+                        <input type="text" th:field="*{typePolice}" class="form-control" id="typePolice">
                     </div>
                     <div class="form-group">
-                        <label>Tarif</label>
-                        <input type="number" step="0.01" th:field="*{tarif}" class="form-control">
+                        <label for="tarif">Tarif</label>
+                        <input type="number" step="0.01" th:field="*{tarif}" class="form-control" id="tarif">
                     </div>
                     <div class="form-group">
-                        <label>Compteur</label>
-                        <input type="number" th:field="*{compteur5Chiffres}" class="form-control">
+                        <label for="compteur5Chiffres">Compteur</label>
+                        <input type="number" th:field="*{compteur5Chiffres}" class="form-control" id="compteur5Chiffres">
                     </div>
-<!--                    <div class="form-group">-->
-<!--                        <label>Utilisateur</label>-->
-<!--                        <select th:field="*{utilisateur}" class="form-control">-->
-<!--                            <option th:each="u : ${utilisateurs}" th:value="${u}" th:text="${u.nom}"></option>-->
-<!--                        </select>-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label>Port</label>-->
-<!--                        <select th:field="*{port}" class="form-control">-->
-<!--                            <option th:each="p : ${ports}" th:value="${p}" th:text="${p.libelle}"></option>-->
-<!--                        </select>-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label>Client</label>-->
-<!--                        <select th:field="*{client}" class="form-control">-->
-<!--                            <option th:each="c : ${clients}" th:value="${c}" th:text="${c.nom}"></option>-->
-<!--                        </select>-->
-<!--                    </div>-->
+                    <div class="form-group">
+                        <label for="utilisateur">Utilisateur</label>
+                        <select th:field="*{utilisateur}" class="form-control" id="utilisateur">
+                            <option th:each="utilisateur : ${utilisateurs}"
+                                    th:value="${utilisateur.id}"
+                                    th:text="${utilisateur.nom}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="client">Client</label>
+                        <select th:field="*{client}" class="form-control" id="client">
+                            <option th:each="client : ${clients}"
+                                    th:value="${client.id}"
+                                    th:text="${client.nom}"></option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-success mt-2">Save</button>
                 </form>
             </div>

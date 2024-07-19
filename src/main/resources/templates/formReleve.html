@@ -36,9 +36,11 @@
                         <input type="date" th:field="*{dateFin}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label>Police</label>
-                        <select th:field="*{police.id}" class="form-control">
-                            <option th:each="police : ${listPolices}" th:value="${police.id}" th:text="${police.typePolice}"></option>
+                        <label for="police">Police</label>
+                        <select th:field="*{police}" class="form-control" id="police">
+                            <option th:each="police : ${polices}"
+                                    th:value="${police.id}"
+                                    th:text="${police.getTarif().toString() + police.getTypePolice().toString()}"></option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-success mt-2">Save</button>

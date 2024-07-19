@@ -2,6 +2,7 @@ package com.example.project.controllers;
 
 import com.example.project.entities.TypePolice;
 import com.example.project.services.TypePoliceService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,9 +16,9 @@ import jakarta.validation.Valid;
 import java.util.Optional;
 
 @Controller
+@AllArgsConstructor
 public class TypePoliceController {
 
-    @Autowired
     private TypePoliceService typePoliceService;
 
     @GetMapping("/typePolices")
@@ -30,7 +31,7 @@ public class TypePoliceController {
         model.addAttribute("pages", new int[pageTypePolices.getTotalPages()]);
         model.addAttribute("currentPage", page);
         model.addAttribute("keyword", keyword);
-        return "typePolices";
+        return "typePolice";
     }
 
     @GetMapping("/deleteTypePolice")

@@ -1,7 +1,10 @@
 package com.example.project.controllers;
 
 import com.example.project.entities.EnteteFacture;
+import com.example.project.repositories.ClientRepo;
+import com.example.project.repositories.EnteteFactureRepo;
 import com.example.project.services.EnteteFactureService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,10 +19,13 @@ import jakarta.validation.Valid;
 import java.util.Optional;
 
 @Controller
+@AllArgsConstructor
 public class EnteteFactureController {
 
-    @Autowired
+
     private EnteteFactureService enteteFactureService;
+private ClientRepo clientRepo;
+private EnteteFactureRepo enteteFactureRepo;
 
     @GetMapping("/enteteFactures")
     public String listEnteteFactures(Model model,
@@ -31,7 +37,7 @@ public class EnteteFactureController {
         model.addAttribute("pages", new int[pageEnteteFactures.getTotalPages()]);
         model.addAttribute("currentPage", page);
         model.addAttribute("keyword", keyword);
-        return "enteteFactures";
+        return "enteteFacture";
     }
 
     @GetMapping("/deleteEnteteFacture")
@@ -43,6 +49,7 @@ public class EnteteFactureController {
     @GetMapping("/formEnteteFacture")
     public String formEnteteFacture(Model model) {
         model.addAttribute("enteteFacture", new EnteteFacture());
+        model.addAttribute("clients",clientRepo.findAll());
         return "formEnteteFacture";
     }
 
@@ -50,8 +57,9 @@ public class EnteteFactureController {
     public String saveEnteteFacture(Model model, @Valid EnteteFacture enteteFacture, BindingResult bindingResult,
                                     @RequestParam(defaultValue = "0") int page,
                                     @RequestParam(defaultValue = "") String keyword) {
-        if (bindingResult.hasErrors()) return "formEnteteFacture";
-        enteteFactureService.save(enteteFacture);
+
+//        enteteFactureService.save(enteteFacture);
+        enteteFactureRepo.save(enteteFacture);
         return "redirect:/enteteFactures?page=" + page + "&keyword=" + keyword;
     }
 
@@ -61,6 +69,7 @@ public class EnteteFactureController {
         if (!enteteFacture.isPresent()) throw new RuntimeException("EnteteFacture not found!");
         model.addAttribute("enteteFacture", enteteFacture.get());
         model.addAttribute("page", page);
+        model.addAttribute("clients",clientRepo.findAll());
         model.addAttribute("keyword", keyword);
         return "editEnteteFacture";
     }

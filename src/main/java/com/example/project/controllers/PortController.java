@@ -42,7 +42,7 @@ public class PortController {
 
 
 
-    @GetMapping("/formPort")
+    @GetMapping("/formPorts")
     public String formPort(Model model) {
         model.addAttribute("port", new Port());
         return "formPort";

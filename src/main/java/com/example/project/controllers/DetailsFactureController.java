@@ -29,7 +29,7 @@ public class DetailsFactureController {
         model.addAttribute("listDetailsFactures", pageDetailsFactures.getContent());
         model.addAttribute("pages", new int[pageDetailsFactures.getTotalPages()]);
         model.addAttribute("currentPage", page);
-        return "detailsFactures";
+        return "detailsFacture";
     }
 
     @GetMapping("/deleteDetailsFacture")

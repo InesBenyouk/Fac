@@ -1,14 +1,16 @@
 package com.example.project;
 
-import com.example.project.entities.Client;
-import com.example.project.entities.EnteteFacture;
-import com.example.project.entities.TypeClient;
+import com.example.project.entities.*;
 import com.example.project.repositories.ClientRepo;
+import com.example.project.repositories.UtilisateurRepo;
+
 import com.example.project.services.EnteteFactureService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,9 +28,21 @@ public class ProjectApplication {
 	}
 
 	@Bean
-	CommandLineRunner start(ClientRepo clientRepo , EnteteFactureService enteteFactureService){
+	CommandLineRunner start(ClientRepo clientRepo , EnteteFactureService enteteFactureService, UtilisateurRepo utilisateurRepo){
 
        return  args -> {
+
+//		   accountService.addNewRole("USER");
+//		   accountService.addNewRole("ADMIN");
+//
+//		   // Add users
+//		   accountService.addNewUser("user1", "password1", "user1@example.com", "password1");
+//		   accountService.addNewUser("admin1", "password1", "admin1@example.com", "password1");
+//
+//		   // Assign roles to users
+//		   accountService.addRoleToUser("user1", "USER");
+//		   accountService.addRoleToUser("admin1", "ADMIN");
+
 		   Client client=new Client();
 		   client.setAdresse("hhkk qsffsqfqfs");
 		   client.setCIN("sfssqqsf");
@@ -36,6 +50,11 @@ public class ProjectApplication {
 		   client.setNom("yassine");
 		   clientRepo.save(client);
 
+		   Utilisateur utilisateur=new Utilisateur();
+		   utilisateur.setEmail("mdqfq@gmail.com");
+		   utilisateur.setNom("dsfsdf");
+		   utilisateur.setRole(role.admin);
+		   utilisateurRepo.save(utilisateur);
 
 		   // Create and save an EnteteFacture
 		   EnteteFacture enteteFacture = new EnteteFacture();
@@ -51,5 +70,9 @@ public class ProjectApplication {
 		   enteteFacture.setClient(client);
 		   enteteFactureService.save(enteteFacture);
 	   };
+	}
+	@Bean
+	PasswordEncoder passwordEncoder(){
+		return new BCryptPasswordEncoder();
 	}
 }

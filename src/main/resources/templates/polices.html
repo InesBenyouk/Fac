@@ -8,20 +8,17 @@
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
 </head>
 <body>
-
 <div layout:fragment="content1">
     <div class="container mt-2">
-        <title>List of Polices</title>
-
         <div class="card">
             <div class="card-header">List of Polices</div>
             <div class="card-body">
-                <form th:action="@{polices}" method="get">
-                    <label>Keyword</label>
-                    <input type="text" name="keyword" th:value="${keyword}">
+                <form th:action="@{/polices}" method="get">
+                    <label for="keyword">Keyword</label>
+                    <input type="text" name="keyword" th:value="${keyword}" id="keyword" class="form-control" style="width: 200px; display: inline;">
                     <button class="btn btn-primary" type="submit">Search</button>
                 </form>
-                <table class="table table-striped shadow">
+                <table class="table table-striped shadow mt-2">
                     <thead>
                     <tr>
                         <th>ID</th>
@@ -29,35 +26,28 @@
                         <th>Tarif</th>
                         <th>Compteur</th>
                         <th>Utilisateur</th>
-                        <th>Port</th>
                         <th>Client</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="p : ${listPolices}">
+                    <tr th:each="p : ${listPolices.content}">
                         <td th:text="${p.id}"></td>
                         <td th:text="${p.typePolice}"></td>
                         <td th:text="${p.tarif}"></td>
                         <td th:text="${p.compteur5Chiffres}"></td>
                         <td th:text="${p.utilisateur.nom}"></td>
-                        <td th:text="${p.port.libelle}"></td>
                         <td th:text="${p.client.nom}"></td>
                         <td>
-                            <a class="btn btn-primary" th:href="@{updatePolice(id=${p.id},page=${currentPage},keyword=${keyword})}">
-                                Update
-                            </a>
-                            <a onclick="return confirm('Are you sure?')" class="btn btn-danger" th:href="@{deletePolice(id=${p.id},keyword=${keyword},page=${currentPage})}">
-                                Delete
-                            </a>
+                            <a class="btn btn-primary" th:href="@{/updatePolice(id=${p.id},page=${currentPage},keyword=${keyword})}">Update</a>
+                            <a onclick="return confirm('Are you sure?')" class="btn btn-danger" th:href="@{/deletePolice(id=${p.id},keyword=${keyword},page=${currentPage})}">Delete</a>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-                <!-- Pagination logic will go here -->
-                <a class="btn btn-success mt-2" th:href="@{/formPolice}">
-                    Add New Police
-                </a>
+
+
+                <a class="btn btn-success mt-2" th:href="@{/formPolice}">Add New Police</a>
             </div>
         </div>
     </div>
