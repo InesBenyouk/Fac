@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Facture</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+
+<div layout:fragment="content1">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="mb-4">Edit Facture</h1>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/saveEnteteFacture}" th:object="${enteteFacture}" method="post">
+                    <input type="hidden" th:field="*{id}"> <!-- Hidden field for ID -->
+
+                    <div class="form-group">
+                        <label for="montantHT">Montant HT:</label>
+                        <input type="text" th:field="*{montantHT}" class="form-control" id="montantHT">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dateEmission">Date Emission:</label>
+                        <input type="date" th:field="*{dateEmission}" class="form-control" id="dateEmission">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="datePaiement">Date Paiement:</label>
+                        <input type="date" th:field="*{datePaiement}" class="form-control" id="datePaiement">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dateAnnulation">Date Annulation:</label>
+                        <input type="date" th:field="*{dateAnnulation}" class="form-control" id="dateAnnulation">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="client">Client:</label>
+                        <select th:field="*{client}" class="form-control" id="client">
+                            <option th:each="c : ${listClients}" th:value="${c.id}" th:text="${c.nom}"></option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mt-2">Update Facture</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

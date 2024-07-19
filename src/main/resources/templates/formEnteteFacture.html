@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+    <meta charset="UTF-8">
+    <title>New Facture</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+
+<div layout:fragment="content1">
+    <div class="container mt-2">
+        <div class="card">
+            <div class="card-header">New Facture</div>
+            <div class="card-body">
+                <form th:action="@{/saveEnteteFacture}" th:object="${enteteFacture}" method="post">
+                    <div class="form-group">
+                        <label>Montant HT</label>
+                        <input type="text" th:field="*{montantHT}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Date Emission</label>
+                        <input type="date" th:field="*{dateEmission}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Date Paiement</label>
+                        <input type="date" th:field="*{datePaiement}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Date Annulation</label>
+                        <input type="date" th:field="*{dateAnnulation}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Client</label>
+                        <select th:field="*{client}" class="form-control">
+                            <option th:each="c : ${listClients}" th:value="${c}" th:text="${c.nom}"></option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

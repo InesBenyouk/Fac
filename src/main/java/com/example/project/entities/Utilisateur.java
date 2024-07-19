@@ -20,6 +20,7 @@ public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String Email;
     private String nom;
     @Enumerated(EnumType.STRING)
     private role role;

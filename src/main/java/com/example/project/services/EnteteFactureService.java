@@ -25,6 +25,7 @@ public class EnteteFactureService {
     }
 
     public EnteteFacture save(EnteteFacture enteteFacture) {
+        calculateAmounts(enteteFacture);
         return enteteFactureRepo.save(enteteFacture);
     }
 
@@ -35,6 +36,21 @@ public class EnteteFactureService {
     public Page<EnteteFacture> findByClientNomContains(String keyword, PageRequest pageRequest) {
         return enteteFactureRepo.findByClientNomContains(keyword, pageRequest);
     }
+
+    private void calculateAmounts(EnteteFacture enteteFacture) {
+        float tauxTaxeRegionale = 0.04f; // 4%
+        float tauxTVA = 0.16f; // 16%
+
+        float montantHT = enteteFacture.getMontantHT();
+        float montantTTR = montantHT * tauxTaxeRegionale;
+        float montantTVA = montantHT * tauxTVA;
+        float montantTTC = montantHT + montantTTR + montantTVA;
+
+        enteteFacture.setMontantTTR(montantTTR);
+        enteteFacture.setMontantTVA(montantTVA);
+        enteteFacture.setMontantTTC(montantTTC);
+    }
 }
+
 
 

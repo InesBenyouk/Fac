@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Factures</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+
+<div layout:fragment="content1">
+    <div class="container mt-2">
+        <title>List of Factures</title>
+
+        <div class="card">
+            <div class="card-header">List of Factures</div>
+            <div class="card-body">
+                <form th:action="@{enteteFactures}" method="get">
+                    <label>Keyword</label>
+                    <input type="text" name="keyword" th:value="${keyword}">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+                <table class="table table-striped shadow">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Client</th>
+                        <th>Montant HT</th>
+                        <th>Montant TTR</th>
+                        <th>Montant TVA</th>
+                        <th>Montant TTC</th>
+                        <th>Date Emission</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="f:${listEnteteFactures}">
+                        <td th:text="${f.id}"></td>
+                        <td th:text="${f.client.nom}"></td>
+                        <td th:text="${f.montantHT}"></td>
+                        <td th:text="${f.montantTTR}"></td>
+                        <td th:text="${f.montantTVA}"></td>
+                        <td th:text="${f.montantTTC}"></td>
+                        <td th:text="${#dates.format(f.dateEmission, 'dd/MM/yyyy')}"></td>
+                        <td>
+                            <a class="btn btn-primary" th:href="@{updateEnteteFacture(id=${f.id},page=${currentPage},keyword=${keyword})}">
+                                Update
+                            </a>
+                        </td>
+                        <td>
+                            <a onclick="return confirm('Are you sure?')" class="btn btn-danger" th:href="@{deleteEnteteFacture(id=${f.id},keyword=${keyword},page=${currentPage})}">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <ul class="nav nav-pills">
+                    <li th:each="page,status:${pages}">
+                        <a th:text="${status.index}" th:class="${status.index==currentPage} ? 'btn btn-primary ms-1' : 'btn btn-outline-primary ms-1'" th:href="@{enteteFactures(page=${status.index},keyword=${keyword})}">
+                        </a>
+                    </li>
+                </ul>
+                <a class="btn btn-success mt-2" th:href="@{/formEnteteFacture}">
+                    Add New Facture
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

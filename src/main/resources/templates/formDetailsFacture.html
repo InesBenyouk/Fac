@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+    <meta charset="UTF-8">
+    <title>New Details Facture</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+
+<div layout:fragment="content1">
+    <div class="container mt-2">
+        <div class="card">
+            <div class="card-header">New Details Facture</div>
+            <div class="card-body">
+                <form th:action="@{/saveDetailsFacture}" th:object="${detailsFacture}" method="post">
+                    <div class="form-group">
+                        <label>Num Ligne</label>
+                        <input type="text" th:field="*{numLigne}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>HT Ligne</label>
+                        <input type="text" th:field="*{HTligne}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Libelle Prestation</label>
+                        <input type="text" th:field="*{libellePrestation}" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

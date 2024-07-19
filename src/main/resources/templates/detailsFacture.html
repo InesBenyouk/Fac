@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Details Factures</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+
+<div layout:fragment="content1">
+    <div class="container mt-2">
+        <title>List of Details Factures</title>
+
+        <div class="card">
+            <div class="card-header">List of Details Factures</div>
+            <div class="card-body">
+                <table class="table table-striped shadow">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Num Ligne</th>
+                        <th>HT Ligne</th>
+                        <th>TR Ligne</th>
+                        <th>TVA Ligne</th>
+                        <th>TTC Ligne</th>
+                        <th>Libelle Prestation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="d:${listDetailsFactures}">
+                        <td th:text="${d.id}"></td>
+                        <td th:text="${d.numLigne}"></td>
+                        <td th:text="${d.HTligne}"></td>
+                        <td th:text="${d.TRligne}"></td>
+                        <td th:text="${d.TVAligne}"></td>
+                        <td th:text="${d.TTCligne}"></td>
+                        <td th:text="${d.libellePrestation}"></td>
+                        <td>
+                            <a class="btn btn-primary" th:href="@{updateDetailsFacture(id=${d.id},page=${currentPage})}">
+                                Update
+                            </a>
+                        </td>
+                        <td>
+                            <a onclick="return confirm('Are you sure?')" class="btn btn-danger" th:href="@{deleteDetailsFacture(id=${d.id},page=${currentPage})}">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <ul class="nav nav-pills">
+                    <li th:each="page,status:${pages}">
+                        <a th:text="${status.index}" th:class="${status.index==currentPage} ? 'btn btn-primary ms-1' : 'btn btn-outline-primary ms-1'" th:href="@{detailsFactures(page=${status.index})}">
+                        </a>
+                    </li>
+                </ul>
+                <a class="btn btn-success mt-2" th:href="@{/formDetailsFacture}">
+                    Add New Details Facture
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
