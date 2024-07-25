@@ -27,8 +27,11 @@ public class EnteteFactureController {
 
 
     private EnteteFactureService enteteFactureService;
-private ClientRepo clientRepo;
-private EnteteFactureRepo enteteFactureRepo;
+    private ClientRepo clientRepo;
+    private EnteteFactureRepo enteteFactureRepo;
+    private RelevéService releveService;
+    private RelevéRepo releveRepository;
+    private DetailsFactureRepo detailsFactureRepo;
 
     @GetMapping("/enteteFactures")
     public String listEnteteFactures(Model model,
@@ -76,8 +79,8 @@ private EnteteFactureRepo enteteFactureRepo;
         model.addAttribute("keyword", keyword);
         return "editEnteteFacture";
     }
-    @Autowired
-    private RelevéService releveService;
+
+
     @PostMapping("/{releveId}/facturer")
     public EnteteFacture facturerReleve(@PathVariable Long releveId, @RequestBody Client client) {
         return releveService.genererFactureAutomatique(releveId, client);
@@ -91,10 +94,9 @@ private EnteteFactureRepo enteteFactureRepo;
 //        enteteFactureService.genererFactureAutomatique(Long releveId);
 //        return "redirect:/releves"; // Redirigez vers la page de relevés après la génération de la facture
 //    }
-    @Autowired
-    private RelevéRepo releveRepository;
-    private DetailsFactureRepo detailsFactureRepo;
-    @GetMapping("/genererFacture/{releveId}")
+
+
+    @GetMapping("/genererFacturess/{releveId}")
     public String genererFacture(@PathVariable Long releveId) {
         Releve releve = releveRepository.findById(releveId).orElseThrow(() -> new RuntimeException("Relevé introuvable"));
         Client client = releve.getPolice().getClient();

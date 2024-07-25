@@ -6,6 +6,7 @@ import com.example.project.entities.Releve;
 import com.example.project.repositories.DetailsFactureRepo;
 import com.example.project.repositories.EnteteFactureRepo;
 import com.example.project.repositories.RelevéRepo;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,10 +16,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class EnteteFactureService {
 
-    @Autowired
+
     private EnteteFactureRepo enteteFactureRepo;
+    private RelevéRepo releveRepository;
+    private DetailsFactureRepo detailsFactureRepo;
 
     public List<EnteteFacture> findAll() {
         return enteteFactureRepo.findAll();
@@ -54,10 +58,7 @@ public class EnteteFactureService {
         enteteFacture.setMontantTVA(montantTVA);
         enteteFacture.setMontantTTC(montantTTC);
     }
-    @Autowired
-    private RelevéRepo releveRepository;
-    @Autowired
-    private DetailsFactureRepo detailsFactureRepo;
+
 
 
 //    public EnteteFacture genererFactureAutomatique(Long releveId, Client client) {
@@ -73,7 +74,7 @@ public class EnteteFactureService {
 
 
 
-    public void genererFacture(Long releveId) {
+    public void genererFactureServ(Long releveId) {
         Releve releve = releveRepository.findById(releveId).orElseThrow(() -> new RuntimeException("Relevé introuvable"));
         Client client = releve.getPolice().getClient();
         float tauxTVA = releve.getPolice().getRegion().getTauxTVA();

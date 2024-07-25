@@ -30,6 +30,9 @@ public class RelevéController {
     private RelevéService releveService;
     private PoliceRepo policeRepo;
     private PortRepo portRepo;
+    private EnteteFactureRepo enteteFactureRepository;
+    private DetailsFactureRepo detailsFactureRepository;
+    private EnteteFactureService enteteFactureService;
 
     @GetMapping("/releves")
     public String listReleves(Model model,
@@ -89,22 +92,12 @@ public class RelevéController {
         model.addAttribute("ports", ports);
         return "editReleve";
     }
-    @Autowired
-    private EnteteFactureService enteteFactureService;
 
-    @GetMapping("/genererFacture/{releveId}")
-    public String genererFacture(@PathVariable Long releveId) {
-        enteteFactureService.genererFacture(releveId);
-        return "redirect:/releves"; // Redirigez vers la page de relevés après la génération de la facture
-    }
 
-    @Autowired
-    private EnteteFactureRepo enteteFactureRepository;
-    @Autowired
-    private DetailsFactureRepo detailsFactureRepository;
+
     @GetMapping("/genererFacture/{releveId}")
     public String genererFacture(@PathVariable Long releveId, Model model) {
-        Releve releve = releveService.findById(releveId);
+        Releve releve = releveService.findById(releveId).orElseThrow();
         Client client = releve.getPolice().getClient();
         float tauxTVA = releve.getPolice().getRegion().getTauxTVA();
         float tauxTTR = releve.getPolice().getRegion().getTauxTaxeRegionale();

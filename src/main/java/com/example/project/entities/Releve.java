@@ -82,8 +82,8 @@ public class Releve {
 
     public void genererFacture(Client client, float tauxTVA, float tauxTTR, EnteteFactureRepo enteteFactureRepo, DetailsFactureRepo detailsFactureRepo) {
         // Calculer le montant HT
-        float consommation ;
-        float tarif;
+        float consommation =0;
+        float tarif=1;
         float montantHT = consommation * tarif;
         if (consommation <= 0 || tarif <= 0) {
             throw new IllegalArgumentException("Consommation et tarif doivent être des valeurs positives.");
