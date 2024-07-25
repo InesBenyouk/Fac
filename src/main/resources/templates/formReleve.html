@@ -18,30 +18,36 @@
                     <div class="form-group">
                         <label>Date Relevé</label>
                         <input type="date" th:field="*{dateRelevé}" class="form-control">
+                        <div th:if="${#fields.hasErrors('dateRelevé')}" th:errors="*{dateRelevé}" class="text-danger"></div>
                     </div>
                     <div class="form-group">
                         <label>Ancienne Lecture</label>
                         <input type="number" step="0.01" th:field="*{ancienneLecture}" class="form-control">
+                        <div th:if="${#fields.hasErrors('ancienneLecture')}" th:errors="*{ancienneLecture}" class="text-danger"></div>
                     </div>
                     <div class="form-group">
                         <label>Nouvelle Lecture</label>
                         <input type="number" step="0.01" th:field="*{nouvelleLecture}" class="form-control">
+                        <div th:if="${#fields.hasErrors('nouvelleLecture')}" th:errors="*{nouvelleLecture}" class="text-danger"></div>
                     </div>
                     <div class="form-group">
                         <label>Date Début</label>
                         <input type="date" th:field="*{dateDebut}" class="form-control">
+                        <div th:if="${#fields.hasErrors('dateDebut')}" th:errors="*{dateDebut}" class="text-danger"></div>
                     </div>
                     <div class="form-group">
                         <label>Date Fin</label>
                         <input type="date" th:field="*{dateFin}" class="form-control">
+                        <div th:if="${#fields.hasErrors('dateFin')}" th:errors="*{dateFin}" class="text-danger"></div>
                     </div>
                     <div class="form-group">
                         <label for="police">Police</label>
                         <select th:field="*{police}" class="form-control" id="police">
                             <option th:each="police : ${polices}"
                                     th:value="${police.id}"
-                                    th:text="${police.getTarif().toString() + police.getTypePolice().toString()}"></option>
+                                    th:text="${police.getTarif().toString() + ' ' + police.getTypePolice().toString()}"></option>
                         </select>
+                        <div th:if="${#fields.hasErrors('police')}" th:errors="*{police}" class="text-danger"></div>
                     </div>
                     <button type="submit" class="btn btn-success mt-2">Save</button>
                 </form>

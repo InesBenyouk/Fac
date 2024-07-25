@@ -19,11 +19,14 @@ public class Releve {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Temporal(TemporalType.DATE)
     private Date dateRelevé;
     private float ancienneLecture;
     private float nouvelleLecture;
     private Long portId;
+    @Temporal(TemporalType.DATE)
     private Date dateDebut;
+    @Temporal(TemporalType.DATE)
     private Date dateFin;
     private float quantiteConsommee;
 

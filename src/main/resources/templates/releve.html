@@ -17,9 +17,9 @@
             <div class="card-body">
                 <form th:action="@{/releves}" method="get" class="mb-3">
                     <label>Start Date</label>
-                    <input type="date" name="startDate"  class="form-control mb-2">
+                    <input type="date" name="startDate" th:value="${startDate}" class="form-control mb-2">
                     <label>End Date</label>
-                    <input type="date" name="endDate"  class="form-control mb-2">
+                    <input type="date" name="endDate" th:value="${endDate}" class="form-control mb-2">
                     <button class="btn btn-primary mt-2" type="submit">Search</button>
                 </form>
                 <table class="table table-striped shadow">
@@ -30,8 +30,8 @@
                         <th>Ancienne Lecture</th>
                         <th>Nouvelle Lecture</th>
                         <th>Quantité Consommée</th>
-                        <th>Date Début</th>
-                        <th>Date Fin</th>
+<!--                        <th>Date Début</th>-->
+<!--                        <th>Date Fin</th>-->
                         <th>Police</th>
                         <th>Actions</th>
                     </tr>
@@ -39,14 +39,19 @@
                     <tbody>
                     <tr th:each="r : ${listReleves}">
                         <td th:text="${r.id}"></td>
-                        <td th:text="${r.dateRelevé}"></td>
+                        <td th:text="${#dates.format(r.dateRelevé, 'dd-MMM-yyyy')}"></td>
                         <td th:text="${r.ancienneLecture}"></td>
                         <td th:text="${r.nouvelleLecture}"></td>
                         <td th:text="${r.quantiteConsommee}"></td>
-                        <td th:text="${r.dateDebut}"></td>
-                        <td th:text="${r.dateFin}"></td>
+<!--                        <td th:text="${#dates.format(r.dateDebut, 'dd-MMM-yyyy')}"></td>-->
+<!--                        <td th:text="${#dates.format(r.dateFin, 'dd-MMM-yyyy')}"></td>-->
                         <td th:text="${r.police.typePolice}"></td>
                         <td>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                                <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
+                                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/>
+                            </svg>
                             <a class="btn btn-primary btn-sm" th:href="@{/updateReleve(id=${r.id},page=${currentPage},startDate=${startDate},endDate=${endDate})}">Update</a>
                             <a onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" th:href="@{/deleteReleve(id=${r.id},startDate=${startDate},endDate=${endDate},page=${currentPage})}">Delete</a>
                         </td>
@@ -55,9 +60,6 @@
                 </table>
 
                 <a class="btn btn-success mt-2" th:href="@{/formReleve}">Add New Releve</a>
-                <a class="btn btn-primary" th:href="@{updateReleve(id=${releve.id})}">Modifier</a>
-                <a class="btn btn-danger" th:href="@{deleteReleve(id=${releve.id})}" onclick="return confirm('Voulez-vous vraiment supprimer ce relevé ?')">Supprimer</a>
-                <a class="btn btn-success" th:href="@{factures/genererFacture/{id}(id=${releve.id})}">Action Facturé</a>
             </div>
         </div>
     </div>
