@@ -29,4 +29,6 @@ public class Police {
     @ManyToOne
     private Client client;
 
+    @ManyToOne
+    private Region region;
 }

@@ -1,7 +1,11 @@
 package com.example.project.services;
 
+import com.example.project.entities.Client;
 import com.example.project.entities.EnteteFacture;
+import com.example.project.entities.Releve;
+import com.example.project.repositories.DetailsFactureRepo;
 import com.example.project.repositories.EnteteFactureRepo;
+import com.example.project.repositories.RelevéRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -50,6 +54,35 @@ public class EnteteFactureService {
         enteteFacture.setMontantTVA(montantTVA);
         enteteFacture.setMontantTTC(montantTTC);
     }
+    @Autowired
+    private RelevéRepo releveRepository;
+    @Autowired
+    private DetailsFactureRepo detailsFactureRepo;
+
+
+//    public EnteteFacture genererFactureAutomatique(Long releveId, Client client) {
+//        Releve releve = releveRepository.findById(releveId).orElseThrow(() -> new RuntimeException("Relevé introuvable"));
+//        float tauxTVA = 0.14f; // 14%
+//        float tauxTTR = 0.04f; // 4%
+//
+//        EnteteFacture facture = releve.genererFacture(client, tauxTVA, tauxTTR, enteteFactureRepo, detailsFactureRepo);
+//        enteteFactureRepo.save(facture);
+//
+//        return facture;
+//    }
+
+
+
+    public void genererFacture(Long releveId) {
+        Releve releve = releveRepository.findById(releveId).orElseThrow(() -> new RuntimeException("Relevé introuvable"));
+        Client client = releve.getPolice().getClient();
+        float tauxTVA = releve.getPolice().getRegion().getTauxTVA();
+        float tauxTTR = releve.getPolice().getRegion().getTauxTaxeRegionale();
+
+        EnteteFacture facture = releve.genererFacture(client, tauxTVA, tauxTTR);
+        enteteFactureRepo.save(facture);
+    }
+
 }
 
 

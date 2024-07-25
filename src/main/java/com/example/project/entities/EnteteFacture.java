@@ -28,5 +28,10 @@ public class EnteteFacture {
 
     @OneToMany(mappedBy = "enteteFacture")
     private Set<DetailsFacture> detailsFactures = new HashSet<>();
+    public void calculerMontants(float tauxTVA, float tauxTTR) {
+        montantTVA = montantHT * tauxTVA;
+        montantTTR = montantHT * tauxTTR;
+        montantTTC = montantHT + montantTVA + montantTTR;
+    }
 }
 

@@ -1,8 +1,10 @@
 package com.example.project.controllers;
-
 import com.example.project.entities.*;
+import com.example.project.repositories.DetailsFactureRepo;
+import com.example.project.repositories.EnteteFactureRepo;
 import com.example.project.repositories.PoliceRepo;
 import com.example.project.repositories.PortRepo;
+import com.example.project.services.EnteteFactureService;
 import com.example.project.services.RelevéService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
@@ -85,6 +88,29 @@ public class RelevéController {
         model.addAttribute("polices", polices);
         model.addAttribute("ports", ports);
         return "editReleve";
+    }
+    @Autowired
+    private EnteteFactureService enteteFactureService;
+
+    @GetMapping("/genererFacture/{releveId}")
+    public String genererFacture(@PathVariable Long releveId) {
+        enteteFactureService.genererFacture(releveId);
+        return "redirect:/releves"; // Redirigez vers la page de relevés après la génération de la facture
+    }
+
+    @Autowired
+    private EnteteFactureRepo enteteFactureRepository;
+    @Autowired
+    private DetailsFactureRepo detailsFactureRepository;
+    @GetMapping("/genererFacture/{releveId}")
+    public String genererFacture(@PathVariable Long releveId, Model model) {
+        Releve releve = releveService.findById(releveId);
+        Client client = releve.getPolice().getClient();
+        float tauxTVA = releve.getPolice().getRegion().getTauxTVA();
+        float tauxTTR = releve.getPolice().getRegion().getTauxTaxeRegionale();
+
+        releve.genererFacture(client, tauxTVA, tauxTTR, enteteFactureRepository, detailsFactureRepository);
+        return "redirect:/releves"; // Redirigez vers la page de relevés après la génération de la facture
     }
 }
 

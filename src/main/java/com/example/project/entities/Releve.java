@@ -1,5 +1,7 @@
 package com.example.project.entities;
 
+import com.example.project.repositories.DetailsFactureRepo;
+import com.example.project.repositories.EnteteFactureRepo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +29,11 @@ public class Releve {
 
     @ManyToOne
     private Police police;
+    @Transient
+    private float consommation;
+    @Transient
+    private float tarif;
+
 
     public void setQuantiteConsommee() {
         int compteur5Chiffres = police.getCompteur5Chiffres();
@@ -36,6 +43,76 @@ public class Releve {
         }
         this.quantiteConsommee = difference;
     }
+
+    public EnteteFacture genererFacture(Client client, float tauxTVA, float tauxTTR) {
+        EnteteFacture facture = new EnteteFacture();
+        facture.setClient(client);
+        facture.setDateEmission(new Date());
+
+        // Exemple de calcul du montant HT basé sur la quantité consommée
+        float montantHT = this.quantiteConsommee * 100; // Ajustez le calcul selon vos besoins
+        facture.setMontantHT(montantHT);
+
+        // Calcul des montants TVA, TTR et TTC
+        float montantTVA = montantHT * tauxTVA;
+        float montantTTR = montantHT * tauxTTR;
+        float montantTTC = montantHT + montantTVA + montantTTR;
+
+        facture.setMontantTVA(montantTVA);
+        facture.setMontantTTR(montantTTR);
+        facture.setMontantTTC(montantTTC);
+
+        // Créer et ajouter les détails de la facture
+        DetailsFacture details = new DetailsFacture();
+        details.setNumLigne(1);
+        details.setHTligne(montantHT);
+        details.setTVAligne(montantTVA);
+        details.setTRligne(montantTTR);
+        details.setTTCligne(montantTTC);
+        details.setLibellePrestation("Consommation");
+        details.setEnteteFacture(facture);
+
+        facture.getDetailsFactures().add(details);
+
+        return facture;
+
+    }
+
+
+
+    public void genererFacture(Client client, float tauxTVA, float tauxTTR, EnteteFactureRepo enteteFactureRepo, DetailsFactureRepo detailsFactureRepo) {
+        // Calculer le montant HT
+        float consommation ;
+        float tarif;
+        float montantHT = consommation * tarif;
+        if (consommation <= 0 || tarif <= 0) {
+            throw new IllegalArgumentException("Consommation et tarif doivent être des valeurs positives.");
+        }
+        // Calcul des montants TVA, TTR, et TTC
+        float montantTVA = montantHT * tauxTVA;
+        float montantTTR = montantHT * tauxTTR;
+        float montantTTC = montantHT + montantTVA + montantTTR;
+
+        // Création de l'entête de facture
+        EnteteFacture facture = new EnteteFacture();
+        facture.setClient(client);
+        facture.setMontantHT(montantHT);
+        facture.setMontantTVA(montantTVA);
+        facture.setMontantTTR(montantTTR);
+        facture.setMontantTTC(montantTTC);
+        // Ajoutez d'autres propriétés si nécessaire
+
+        // Sauvegarde de l'entête de facture
+        enteteFactureRepo.save(facture);
+    }
+
+//   public int getConsommation() {
+//
+//        return Consommation;
+//    }
+//
+//    public int getTarif() {
+//    }
 }
 
 

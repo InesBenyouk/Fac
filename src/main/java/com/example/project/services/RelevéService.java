@@ -1,6 +1,9 @@
 package com.example.project.services;
 
+import com.example.project.entities.Client;
+import com.example.project.entities.EnteteFacture;
 import com.example.project.entities.Releve;
+import com.example.project.repositories.EnteteFactureRepo;
 import com.example.project.repositories.RelevéRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,5 +42,26 @@ public class RelevéService {
 
     public Page<Releve> findAll(PageRequest pageRequest) {
         return releveRepo.findAll(pageRequest);
+    }
+
+
+    @Autowired
+    private EnteteFactureRepo enteteFactureRepo;
+    public EnteteFacture genererFactureAutomatique(Long releveId, Client client) {
+        // Récupérer le relevé par son ID
+        Releve releve = releveRepo.findById(releveId).orElseThrow(() -> new RuntimeException("Relevé introuvable"));
+
+        // Définir les taux pour la TVA et la taxe régionale
+        float tauxTVA = 0.14f; // 14%
+        float tauxTTR = 0.04f; // 4%
+
+        // Générer la facture à partir du relevé
+        EnteteFacture facture = releve.genererFacture(client, tauxTVA, tauxTTR);
+
+        // Sauvegarder la facture dans la base de données
+        enteteFactureRepo.save(facture);
+
+        // Retourner la facture générée
+        return facture;
     }
 }

@@ -55,6 +55,9 @@
                 </table>
 
                 <a class="btn btn-success mt-2" th:href="@{/formReleve}">Add New Releve</a>
+                <a class="btn btn-primary" th:href="@{updateReleve(id=${releve.id})}">Modifier</a>
+                <a class="btn btn-danger" th:href="@{deleteReleve(id=${releve.id})}" onclick="return confirm('Voulez-vous vraiment supprimer ce relevé ?')">Supprimer</a>
+                <a class="btn btn-success" th:href="@{factures/genererFacture/{id}(id=${releve.id})}">Action Facturé</a>
             </div>
         </div>
     </div>

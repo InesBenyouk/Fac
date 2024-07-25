@@ -25,6 +25,11 @@ public class DetailsFacture {
     @ManyToOne
     @JoinColumn(name = "entete_facture_id")
     private EnteteFacture enteteFacture;
+    public void calculerLigne(float tauxTVA, float tauxTTR) {
+        TVAligne = HTligne * tauxTVA;
+        TRligne = HTligne * tauxTTR;
+        TTCligne = HTligne + TVAligne + TRligne;
+    }
 
 }
 
