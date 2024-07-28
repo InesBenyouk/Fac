@@ -1,9 +1,6 @@
 package com.example.project.controllers;
 import com.example.project.entities.*;
-import com.example.project.repositories.DetailsFactureRepo;
-import com.example.project.repositories.EnteteFactureRepo;
-import com.example.project.repositories.PoliceRepo;
-import com.example.project.repositories.PortRepo;
+import com.example.project.repositories.*;
 import com.example.project.services.EnteteFactureService;
 import com.example.project.services.RelevéService;
 import lombok.AllArgsConstructor;
@@ -16,9 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 
 @Controller
 @AllArgsConstructor
@@ -26,6 +22,7 @@ public class RelevéController {
 
 
     private RelevéService releveService;
+    private RelevéRepo relevéRepo;
     private PoliceRepo policeRepo;
     private PortRepo portRepo;
     private EnteteFactureRepo enteteFactureRepository;
@@ -100,15 +97,31 @@ public class RelevéController {
 
 
 
-    @GetMapping("/genererFacture/{releveId}")
-    public String genererFacture(@PathVariable Long releveId, Model model) {
-        Releve releve = releveService.findById(releveId).orElseThrow();
-        Client client = releve.getPolice().getClient();
-        float tauxTVA = releve.getPolice().getRegion().getTauxTVA();
-        float tauxTTR = releve.getPolice().getRegion().getTauxTaxeRegionale();
-
-        releve.genererFacture(client, tauxTVA, tauxTTR, enteteFactureRepository, detailsFactureRepository);
-        return "redirect:/releves"; // Redirigez vers la page de relevés après la génération de la facture
+    @GetMapping("/generateFacture")
+    public String generateFacture(@RequestParam(name = "id") Long id, Model model) {
+        Releve releve=relevéRepo.findById(id).orElseThrow();
+        EnteteFacture enteteFacture=new EnteteFacture();
+        enteteFacture.setId(1L);
+        enteteFacture.setMontantTTC(1000.0f);
+        enteteFacture.setMontantHT(800.0f);
+        enteteFacture.setMontantTVA(200.0f);
+        enteteFacture.setMontantTTR(950.0f);
+        enteteFacture.setDateEmission(new Date());
+        enteteFacture.setDatePaiement(new Date());
+        enteteFacture.setDateAnnulation(null);
+        DetailsFacture detailsFacture=new DetailsFacture();
+        detailsFacture.setNumLigne(1);
+        detailsFacture.setHTligne(500.0f);
+        detailsFacture.setTVAligne(100.0f);
+        detailsFacture.setTRligne(50.0f);
+        detailsFacture.setTTCligne(650.0f);
+        detailsFacture.setLibellePrestation("Consulting Services");
+        Set<DetailsFacture> detailsFactures=new HashSet<>();
+        detailsFactures.add(detailsFacture);
+        enteteFacture.setDetailsFactures(detailsFactures);
+        enteteFactureRepository.save(enteteFacture);
+        model.addAttribute("enteteFacture", enteteFacture);
+        return "detailsFacture";
     }
 }
 

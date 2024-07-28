@@ -26,7 +26,7 @@ public class EnteteFacture {
     @ManyToOne
     private Client client;
 
-    @OneToMany(mappedBy = "enteteFacture")
+    @OneToMany(mappedBy = "enteteFacture", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<DetailsFacture> detailsFactures = new HashSet<>();
     public void calculerMontants(float tauxTVA, float tauxTTR) {
         montantTVA = montantHT * tauxTVA;
