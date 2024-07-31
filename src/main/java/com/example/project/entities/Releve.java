@@ -30,7 +30,7 @@ public class Releve {
     private Date dateFin;
     private float quantiteConsommee;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Police police;
     @Transient
     private float consommation;
@@ -85,6 +85,7 @@ public class Releve {
 
     public void genererFacture(Client client, float tauxTVA, float tauxTTR, EnteteFactureRepo enteteFactureRepo, DetailsFactureRepo detailsFactureRepo) {
         // Calculer le montant HT
+//        this.consommation = (nouvelleLecture - ancienneLecture) * 100;
         float consommation =0;
         float tarif=1;
         float montantHT = consommation * tarif;
