@@ -210,7 +210,9 @@ public class RelevéController {
 
         // Calcul du montant HT
         float montantHT = consommation * tarif;
-
+        System.out.println(consommation);
+        System.out.println(tarif);
+        System.out.println(montantHT);
         // Calcul des montants TVA, TTR, et TTC
         float tauxTVA = 0.16f; // Exemple de taux de TVA (16%)
         float tauxTTR = 0.04f; // Exemple de taux de taxe régionale (4%)
@@ -218,6 +220,9 @@ public class RelevéController {
         float montantTTR = montantHT * tauxTTR;
         float montantTTC = montantHT + montantTVA + montantTTR;
 
+        System.out.println(montantTVA);
+        System.out.println(montantTTR);
+        System.out.println(montantTTC);
         // Création de l'entête de facture
         EnteteFacture enteteFacture = new EnteteFacture();
         enteteFacture.setId(1L); // Vous devez définir une méthode pour générer l'ID unique
@@ -237,7 +242,6 @@ public class RelevéController {
         detailsFacture.setTRligne(montantTTR);
         detailsFacture.setTTCligne(montantTTC);
         detailsFacture.setLibellePrestation("Consommation");
-        detailsFacture.setEnteteFacture(enteteFacture);
 
         Set<DetailsFacture> detailsFactures = new HashSet<>();
         detailsFactures.add(detailsFacture);
@@ -245,7 +249,7 @@ public class RelevéController {
 
         // Sauvegarde de l'entête de facture et des détails
         enteteFactureRepo.save(enteteFacture);
-        detailsFactureRepo.save(detailsFacture);
+
 
         // Ajout de l'entête de facture au modèle
         model.addAttribute("enteteFacture", enteteFacture);
