@@ -17,9 +17,9 @@
             <div class="card-header">Liste des Clients</div>
             <div class="card-body">
                 <form th:action="@{index}" method="get">
-                    <label>Keyword</label>
+                    <label>Mot-clé</label>
                     <input type="text" name="keyword" th:value="${keyword}">
-                    <button class="btn btn-primary" type="submit">Search</button>
+                    <button class="btn btn-primary" type="submit">Rechercher</button>
                 </form>
                 <table class="table table-bordered table-dark mt-5 table-striped table-hover">
                     <thead>
@@ -43,12 +43,12 @@
                         <td th:text="${c.CIN}"></td>
                         <td>
                             <a class="btn btn-primary" th:href="@{update(id=${c.id},page=${currentPage},keyword=${keyword})}">
-                                Update
+                                Modifier
                             </a>
                         </td>
                         <td>
                             <a onclick="return confirm('Are you sure?')" class="btn btn-danger" th:href="@{delete(id=${c.id},keyword=${keyword},page=${currentPage})}">
-                                Delete
+                                Supprimer
                             </a>
                         </td>
                     </tr>

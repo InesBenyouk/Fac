@@ -1,6 +1,5 @@
 package com.example.project.controllers;
 
-import com.example.project.entities.Utilisateur;
 //import com.example.project.services.UtilisateurService;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.http.ResponseEntity;
@@ -57,3 +56,78 @@ import com.example.project.entities.Utilisateur;
 //    }
 //}
 //
+
+
+import com.example.project.entities.Utilisateur;
+import com.example.project.entities.Utilisateur;
+import com.example.project.services.UtilisateurService;
+import com.example.project.services.UtilisateurService;
+import jdk.jshell.execution.Util;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@Controller
+@RequestMapping("/users")
+public class UtilisateurController {
+
+    @Autowired
+    private UtilisateurService utilisateurService;
+
+    @GetMapping
+    public String index(@RequestParam(name = "search", required = false) String search, Model model) {
+        List<Utilisateur> users = utilisateurService.getAllUsers(search);
+        model.addAttribute("users", users);
+        return "users/index";
+    }
+
+    @GetMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("user", new Utilisateur());
+        return "users/create";
+    }
+
+    @PostMapping
+    public String store(@ModelAttribute Utilisateur utilisateur) {
+        utilisateurService.createUser(utilisateur);
+        return "redirect:/users";
+    }
+
+    @GetMapping("/{id}")
+    public String show(@PathVariable Long id, Model model) {
+        Optional<Utilisateur> user = utilisateurService.getUserById(id);
+        if (user.isPresent()) {
+            model.addAttribute("user", user.get());
+            return "users/show";
+        } else {
+            return "redirect:/users";
+        }
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) {
+        Optional<Utilisateur> user = utilisateurService.getUserById(id);
+        if (user.isPresent()) {
+            model.addAttribute("user", user.get());
+            return "users/edit";
+        } else {
+            return "redirect:/users";
+        }
+    }
+
+    @PostMapping("/{id}/update")
+    public String update(@PathVariable Long id, @ModelAttribute Utilisateur utilisateur) {
+        utilisateurService.updateUser(id, utilisateur);
+        return "redirect:/users";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id) {
+        utilisateurService.deleteUser(id);
+        return "redirect:/users";
+    }
+}

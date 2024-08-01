@@ -12,7 +12,7 @@
     <div class="container mt-5">
         <div class="card">
             <div class="card-header">
-                <h1 class="mb-4">Edit Police</h1>
+                <h1 class="mb-4">Mettre à jour Police</h1>
             </div>
             <div class="card-body">
                 <form th:action="@{/savePolice}" th:object="${police}" method="post">
@@ -46,7 +46,7 @@
                                     th:text="${client.nom}"></option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Update Police</button>
+                    <button type="submit" class="btn btn-primary">Modifier Police</button>
                 </form>
             </div>
         </div>

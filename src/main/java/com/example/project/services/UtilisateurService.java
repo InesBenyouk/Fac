@@ -51,6 +51,27 @@ public class UtilisateurService implements UserDetailsService {
         );
     }
 }*/
+package com.example.project.services;
+
+
+
+import com.example.project.entities.Utilisateur;
+import com.example.project.entities.Utilisateur;
+import jdk.jshell.execution.Util;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface UtilisateurService {
+    List<Utilisateur> getAllUsers(String search);
+    Utilisateur createUser(Utilisateur utilisateur);
+    Optional<Utilisateur> getUserById(Long id);
+    Utilisateur updateUser(Long id, Utilisateur utilisateur);
+    void deleteUser(Long id);
+}
+
+
+
 
 
 

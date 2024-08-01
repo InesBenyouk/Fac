@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,11 +24,19 @@ public class Utilisateur {
     private Long id;
     private String email;
     private String nom;
+    private String prenom;
+    private String telephone;
     @Enumerated(EnumType.STRING)
     private role role;
 
     @OneToMany
     private Set<Police> polices = new HashSet<>();
+    private String password;
+
+    public void setPassword(String password) {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
+    }
 
     // Getters et setters
 }

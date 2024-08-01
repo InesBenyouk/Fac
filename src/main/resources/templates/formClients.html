@@ -12,7 +12,7 @@
 <div layout:fragment="content1">
     <div class="container mt-2">
         <div class="card">
-            <div class="card-header">New Client</div>
+            <div class="card-header">Nouveau Client</div>
             <div class="card-body">
                 <form th:action="@{/save}" th:object="${client}" method="post">
                     <div class="form-group">
@@ -38,7 +38,7 @@
                         <label>CIN</label>
                         <input type="text" th:field="*{CIN}" class="form-control">
                     </div>
-                    <button type="submit" class="btn btn-success mt-2">Save</button>
+                    <button type="submit" class="btn btn-success mt-2">Ajouter</button>
                 </form>
             </div>
         </div>

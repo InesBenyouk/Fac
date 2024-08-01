@@ -12,7 +12,7 @@
 <div layout:fragment="content1">
     <div class="container mt-2">
         <div class="card">
-            <div class="card-header">New TypePolice</div>
+            <div class="card-header">Nouveau Type Police</div>
             <div class="card-body">
                 <form th:action="@{/saveTypePolice}" th:object="${typePolice}" method="post">
                     <div class="form-group">
@@ -23,7 +23,7 @@
                         <label>Taux TVA</label>
                         <input type="number" step="0.01" th:field="*{tauxTVA}" class="form-control">
                     </div>
-                    <button type="submit" class="btn btn-success mt-2">Save</button>
+                    <button type="submit" class="btn btn-success mt-2">Ajouter</button>
                 </form>
             </div>
         </div>

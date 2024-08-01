@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire Utilisateur</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h1 th:text="${user.id} != null ? 'Éditer Utilisateur' : 'Créer Utilisateur'"></h1>
+        </div>
+        <div class="card-body">
+            <form th:action="@{${user.id} != null ? '/users/' + ${user.id} + '/update' : '/users'}" th:object="${user}" method="post">
+                <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <input type="text" id="nom" name="nom" class="form-control" th:field="*{nom}" required>
+                </div>
+                <div class="form-group">
+                    <label for="prenom">Prénom</label>
+                    <input type="text" id="prenom" name="prenom" class="form-control" th:field="*{prenom}" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" th:field="*{email}" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" class="form-control" th:field="*{password}" th:required="${user.id} == null}">
+                </div>
+                <div class="form-group">
+                    <label for="telephone">Téléphone</label>
+                    <input type="tel" id="telephone" name="telephone" class="form-control" th:field="*{telephone}" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Rôle</label>
+                    <select id="role" name="role" class="form-control" th:field="*{role}" required>
+                        <option value="admin">Administrateur</option>
+                        <option value="infra">Infrastructure</option>
+                        <option value="finance">Finance</option>
+                        <option value="facturation">Facturation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success" th:text="${user.id} != null ? 'Mettre à jour' : 'Ajouter'"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
