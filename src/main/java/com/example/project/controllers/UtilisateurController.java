@@ -78,17 +78,17 @@ public class UtilisateurController {
     @Autowired
     private UtilisateurService utilisateurService;
 
-    @GetMapping
+    @GetMapping("/utilisateur")
     public String index(@RequestParam(name = "search", required = false) String search, Model model) {
         List<Utilisateur> users = utilisateurService.getAllUsers(search);
         model.addAttribute("users", users);
-        return "users/index";
+        return "Utilisateur";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/formUtilisateur")
     public String create(Model model) {
         model.addAttribute("user", new Utilisateur());
-        return "users/create";
+        return "formUtilisateur";
     }
 
     @PostMapping
